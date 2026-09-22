@@ -1,12 +1,15 @@
 package io.github.musulaoeduardo.clientes.dominio;
 
+import io.github.musulaoeduardo.clientes.dominio.enums.TipoSexo;
+
+import java.util.Arrays;
 import  java.util.UUID;
 
 public class Cliente {
     private UUID codigo;
     private String nome;
     private String cpf;
-    private String sexo;
+    private TipoSexo sexo;
     private byte[] foto;
 
     public Cliente() {
@@ -37,11 +40,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public String getSexo() {
+    public TipoSexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(TipoSexo sexo) {
         this.sexo = sexo;
     }
 
@@ -51,5 +54,33 @@ public class Cliente {
 
     public void setFoto(byte[] foto) {
         this.foto = foto;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "codigo=" + codigo +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", sexo=" + sexo +
+                ", foto=" + Arrays.toString(foto) +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cliente cliente = (Cliente) o;
+        return codigo.equals(cliente.codigo) && nome.equals(cliente.nome) && cpf.equals(cliente.cpf) && sexo == cliente.sexo;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = codigo.hashCode();
+        result = 31 * result + nome.hashCode();
+        result = 31 * result + cpf.hashCode();
+        result = 31 * result + sexo.hashCode();
+        return result;
     }
 }
